@@ -1,5 +1,98 @@
 \begin{itemize}
-    \item \placeholder{Интересные вычисления: $E = 0.4 \cdot (3 \cdot 10^8)^2 = 3.6 \cdot 10^{16}$}
+    \item Заметим, что левая часть графика имеет теоретическую линейную зависимость. В силу 
+    явлений, имеющих сложную природу описания, правую часть вычислений будем аппроксимировать 
+    полиномом 3-ей степени.
 
-    \item Прилагается \hyperlink{tableM}{Таблица M} в Приложении 2
+    \item Найдем линейную зависимость для первых 8 полученных значения с помощью метода наименьших квадратов. 
+    Пример для $U = 9$ В:
+
+    $\overline{I_{L1-8}} = 82.5, \qquad \overline{I_{a1-8}} = 0.218$
+
+    $\displaystyle b = \frac{\sum_{i = 1}^8 (I_{Li} - \overline{I_{L1-8}})(I_{ai} - \overline{I_{a1-8}})}{\sum_{i = 1}^8 (I_{Li} - \overline{I_{L1-8}})^2} = -1.19 \cdot 10^{-6}$
+
+    $a = \overline{I_{a1-8}} - b \cdot \overline{I_{L1-8}} = 0.218$
+
+    Получаем данные линейные аппроксимации:
+
+    \begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            $U$, В & Линейная аппроксимация ($I_L$ и $I_a$ в мА) \\
+            \hline
+            $9$ & $I_a \approx -1.19 \cdot 10^{-6} \cdot I_L + 0.218$ \\
+            \hline
+            $10.5$ & $I_a \approx -5.89 \cdot 10^{-6} \cdot I_L + 0.264$ \\
+            \hline
+            $13.5$ & $I_a \approx -1.66 \cdot 10^{-5} \cdot I_L + 0.357$ \\
+            \hline
+        \end{tabular}
+
+        \smallvspace
+
+        \textit{Таблица 2.} Аппроксимации $I_a = I_a(I_L)$ при $B < B_\text{кр}$
+
+    \end{center}
+
+    \item Найдем полиномы 3-ей степени для аппроксимации зависимости для $B > B_\text{кр}$. 
+    Решая данную систему уравнений для $a, b, c, d$
+
+    \[\begin{cases} \displaystyle 
+        a \sum_{i = 9}^{20} I_{Li}^3 + b \sum_{i = 9}^{20} I_{Li}^2 + c \sum_{i = 9}^{20} I_{Li} + d n = \sum_{i = 9}^{20} I_{Li}   \\
+        a \sum_{i = 9}^{20} I_{Li}^4 + b \sum_{i = 9}^{20} I_{Li}^3 + c \sum_{i = 9}^{20} I_{Li}^2 + d \sum_{i = 9}^{20} I_{Li}^1 = \sum_{i = 9}^{20} I_{ai} I_{Li}   \\
+        a \sum_{i = 9}^{20} I_{Li}^5 + b \sum_{i = 9}^{20} I_{Li}^4 + c \sum_{i = 9}^{20} I_{Li}^3 + d \sum_{i = 9}^{20} I_{Li}^2 = \sum_{i = 9}^{20} I_{ai}^2 I_{Li}   \\
+        a \sum_{i = 9}^{20} I_{Li}^6 + b \sum_{i = 9}^{20} I_{Li}^5 + c \sum_{i = 9}^{20} I_{Li}^4 + d \sum_{i = 9}^{20} I_{Li}^3 = \sum_{i = 9}^{20} I_{ai}^3 I_{Li}  \\
+    \end{cases}\]
+
+    получаем такие полиномы 3-ей степени:
+    
+    \begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            $U$, В & Кубическая аппроксимация ($I_L$ и $I_a$ в мА) \\
+            \hline
+            $9$ & $I_a \approx -5.89 \cdot 10^{-9} \cdot I_L^3 + 8.91 \cdot 10^{-6} \cdot I_L^2 + 
+                -4.51 \cdot 10^{-3} \cdot I_L + 0.802$ \\
+            \hline
+            $10.5$ & $I_a \approx -1.72 \cdot 10^{-8} \cdot I_L^3 + 2.14 \cdot 10^{-5} \cdot I_L^2 + 
+                -9.16 \cdot 10^{-3} \cdot I_L + 1.397$ \\
+            \hline
+            $13.5$ & $I_a \approx -3.79 \cdot 10^{-8} \cdot I_L^3 + 4.54 \cdot 10^{-5} \cdot I_L^2 + 
+                -1.84 \cdot 10^{-6} \cdot I_L + 2.638$ \\
+            \hline
+        \end{tabular}
+
+        \smallvspace
+
+        \textit{Таблица 3.} Аппроксимации $I_a = I_a(I_L)$ при $B > B_\text{кр}$
+
+    \end{center}
+
+    \item Пересечения данных функций дают такие точки: 
+    
+    \begin{itemize}
+        \item для $U = 9$ В $\ I_{L_\text{кр}} = 194.31$ мА
+        \item для $U = 10.5$ В $\ I_{L_\text{кр}} = 208.09$ мА
+        \item для $U = 13.5$ В $\ I_{L_\text{кр}} = 223.84$ мА
+    \end{itemize}
+
+    \item Для полученных значений критической силы тока вычисляем критическое значение магнитного поля
+    и удельный заряд электрона. Пример для $U = 9$ В:
+
+    $\displaystyle B_\text{кр} = \mu_0 I_{L_\text{кр}} N \frac{1}{\sqrt{l^2 + d^2}} = 7.094 \cdot 10^{-3}$ Тл
+
+    $\displaystyle \frac{e}{m} = \frac{8 U}{B^2_\text{кр} r^2_a} = 1.589 \cdot 10^{11}$ Кл/кг
+
+    Результаты прилагаются в \hyperlink{table2}{таблице 5} в Приложении 2
+
+    \item При помощи метода наименьших квадратов найдем угловой коэффициент прямой, аппроксимирующей 
+    зависимость $B^2_\text{кр}$ от $U$:
+
+    $\overline{U} = 11, \qquad \overline{B^2_\text{кр}} = 5.829 \cdot 10^{-5}$
+
+    $\displaystyle b = \frac{\sum_{i = 1}^3 (U_i - \overline{U})(B^2_{i\text{кр}} - \overline{B^2_\text{кр}})}{\sum_{i = 1}^3 (U_i - \overline{U})^2} = 3.568 \cdot 10^{-6}$
+
+    $a = \overline{B^2_\text{кр}} - b \cdot \overline{U} = 1.903 \cdot 10^{-5}$
+
+    \item Подставляя в формулу значение $\displaystyle \frac{\Delta B^2_\text{кр}}{\Delta U} = 3.568 \cdot 10^{-6}$ получаем $\displaystyle \frac{e}{m} = 2.490 \cdot 10^{11} $ Кл/кг
+
 \end{itemize}
